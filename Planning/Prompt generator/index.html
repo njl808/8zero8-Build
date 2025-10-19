@@ -1,0 +1,2521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Prompt Generator - Perfect Prompts for Lovable, Bolt, v0 &amp; More</title>
+    <style>
+        :root {
+            /* Design System Variables */
+            --color-white: rgba(255, 255, 255, 1);
+            --color-black: rgba(0, 0, 0, 1);
+            --color-cream-50: rgba(252, 252, 249, 1);
+            --color-cream-100: rgba(255, 255, 253, 1);
+            --color-gray-200: rgba(245, 245, 245, 1);
+            --color-gray-300: rgba(167, 169, 169, 1);
+            --color-gray-400: rgba(119, 124, 124, 1);
+            --color-slate-500: rgba(98, 108, 113, 1);
+            --color-brown-600: rgba(94, 82, 64, 1);
+            --color-charcoal-700: rgba(31, 33, 33, 1);
+            --color-charcoal-800: rgba(38, 40, 40, 1);
+            --color-slate-900: rgba(19, 52, 59, 1);
+            --color-teal-300: rgba(50, 184, 198, 1);
+            --color-teal-400: rgba(45, 166, 178, 1);
+            --color-teal-500: rgba(33, 128, 141, 1);
+            --color-teal-600: rgba(29, 116, 128, 1);
+            --color-teal-700: rgba(26, 104, 115, 1);
+            --color-red-500: rgba(192, 21, 47, 1);
+            --color-orange-500: rgba(168, 75, 47, 1);
+
+            /* Semantic Colors */
+            --color-background: var(--color-cream-50);
+            --color-surface: var(--color-cream-100);
+            --color-text: var(--color-slate-900);
+            --color-text-secondary: var(--color-slate-500);
+            --color-primary: var(--color-teal-500);
+            --color-primary-hover: var(--color-teal-600);
+            --color-border: rgba(94, 82, 64, 0.2);
+            --color-card-border: rgba(94, 82, 64, 0.12);
+            --color-secondary: rgba(94, 82, 64, 0.12);
+            --color-secondary-hover: rgba(94, 82, 64, 0.2);
+            --color-error: var(--color-red-500);
+            --color-success: var(--color-teal-500);
+            
+            /* Typography */
+            --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-size-xs: 12px;
+            --font-size-sm: 14px;
+            --font-size-base: 16px;
+            --font-size-lg: 18px;
+            --font-size-xl: 20px;
+            --font-size-2xl: 24px;
+            --font-size-3xl: 30px;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            
+            /* Spacing */
+            --space-4: 4px;
+            --space-8: 8px;
+            --space-12: 12px;
+            --space-16: 16px;
+            --space-20: 20px;
+            --space-24: 24px;
+            --space-32: 32px;
+            --space-48: 48px;
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-base: 8px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            
+            /* Animation */
+            --duration-fast: 150ms;
+            --duration-normal: 250ms;
+            --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-20);
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: var(--space-48);
+            padding: var(--space-32) 0;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-teal-600) 100%);
+            color: white;
+            border-radius: var(--radius-lg);
+        }
+
+        .header h1 {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-8);
+        }
+
+        .header p {
+            font-size: var(--font-size-lg);
+            opacity: 0.9;
+            margin-bottom: var(--space-24);
+        }
+
+        .builder-select {
+            display: inline-block;
+            margin-top: var(--space-16);
+        }
+
+        .builder-select select {
+            padding: var(--space-8) var(--space-16);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-base);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: var(--font-size-base);
+            cursor: pointer;
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            margin-bottom: var(--space-32);
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-16);
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-gray-200);
+            color: var(--color-text-secondary);
+            font-weight: var(--font-weight-medium);
+            transition: all var(--duration-normal) var(--ease-standard);
+        }
+
+        .progress-step.active {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .progress-step.completed {
+            background: var(--color-success);
+            color: white;
+        }
+
+        .progress-line {
+            flex: 1;
+            height: 2px;
+            background: var(--color-gray-200);
+            margin: 0 var(--space-8);
+            transition: background var(--duration-normal) var(--ease-standard);
+        }
+
+        .progress-line.completed {
+            background: var(--color-success);
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+        }
+
+        /* Form Styles */
+        .form-stage {
+            background: var(--color-surface);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-32);
+            margin-bottom: var(--space-32);
+            box-shadow: var(--shadow-sm);
+            display: none;
+            animation: fadeIn var(--duration-normal) var(--ease-standard);
+        }
+
+        .form-stage.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stage-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-8);
+            color: var(--color-primary);
+        }
+
+        .stage-description {
+            font-size: var(--font-size-base);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-32);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-24);
+        }
+
+        .form-group.half {
+            display: inline-block;
+            width: calc(50% - var(--space-8));
+            margin-right: var(--space-16);
+        }
+
+        .form-group.half:nth-child(even) {
+            margin-right: 0;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-8);
+            color: var(--color-text);
+        }
+
+        .form-label.required::after {
+            content: ' *';
+            color: var(--color-error);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--space-12) var(--space-16);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-base);
+            font-size: var(--font-size-base);
+            background: var(--color-surface);
+            transition: border-color var(--duration-fast) var(--ease-standard);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .form-input.error {
+            border-color: var(--color-error);
+        }
+
+        .form-input.valid {
+            border-color: var(--color-success);
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: var(--space-12) var(--space-16);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-base);
+            font-size: var(--font-size-base);
+            background: var(--color-surface);
+            cursor: pointer;
+        }
+
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-12);
+        }
+
+        .radio-option {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .radio-card {
+            padding: var(--space-16);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-base);
+            background: var(--color-surface);
+            transition: all var(--duration-fast) var(--ease-standard);
+            text-align: center;
+        }
+
+        .radio-option input[type="radio"]:checked + .radio-card {
+            border-color: var(--color-primary);
+            background: rgba(33, 128, 141, 0.1);
+        }
+
+        .radio-card:hover {
+            border-color: var(--color-primary);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-12);
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: var(--space-12);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            background: var(--color-surface);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-standard);
+        }
+
+        .checkbox-option:hover {
+            border-color: var(--color-primary);
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            margin-right: var(--space-8);
+        }
+
+        .color-input {
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+        }
+
+        .color-picker {
+            width: 50px;
+            height: 40px;
+            border: none;
+            border-radius: var(--radius-base);
+            cursor: pointer;
+        }
+
+        .color-hex {
+            flex: 1;
+            padding: var(--space-8) var(--space-12);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-base);
+            font-family: monospace;
+        }
+
+        .dynamic-list {
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            padding: var(--space-16);
+        }
+
+        .dynamic-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+            margin-bottom: var(--space-12);
+        }
+
+        .dynamic-item input {
+            flex: 1;
+        }
+
+        .dynamic-item button {
+            padding: var(--space-4) var(--space-8);
+            background: var(--color-error);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+        }
+
+        .add-button {
+            padding: var(--space-8) var(--space-16);
+            background: var(--color-secondary);
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            cursor: pointer;
+            transition: background var(--duration-fast) var(--ease-standard);
+        }
+
+        .add-button:hover {
+            background: var(--color-secondary-hover);
+        }
+
+        .range-input {
+            width: 100%;
+            margin: var(--space-8) 0;
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-32);
+            padding-top: var(--space-24);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .nav-button {
+            padding: var(--space-12) var(--space-24);
+            border: none;
+            border-radius: var(--radius-base);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-standard);
+        }
+
+        .nav-button.primary {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .nav-button.primary:hover {
+            background: var(--color-primary-hover);
+        }
+
+        .nav-button.secondary {
+            background: var(--color-secondary);
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+        }
+
+        .nav-button.secondary:hover {
+            background: var(--color-secondary-hover);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Utility Buttons */
+        .utility-buttons {
+            display: flex;
+            gap: var(--space-12);
+            margin-bottom: var(--space-24);
+        }
+
+        .utility-button {
+            padding: var(--space-8) var(--space-16);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: all var(--duration-fast) var(--ease-standard);
+        }
+
+        .utility-button:hover {
+            background: var(--color-secondary);
+        }
+
+        /* Output Styles */
+        .output-container {
+            background: var(--color-surface);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-32);
+            margin-bottom: var(--space-32);
+            box-shadow: var(--shadow-sm);
+            display: none;
+        }
+
+        .output-container.active {
+            display: block;
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-24);
+        }
+
+        .output-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary);
+        }
+
+        .output-actions {
+            display: flex;
+            gap: var(--space-12);
+        }
+
+        .output-content {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            padding: var(--space-20);
+            font-family: monospace;
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            white-space: pre-wrap;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .builder-toggle {
+            margin-bottom: var(--space-16);
+        }
+
+        .builder-options {
+            display: flex;
+            gap: var(--space-8);
+        }
+
+        .builder-option {
+            padding: var(--space-8) var(--space-16);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            background: var(--color-surface);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: all var(--duration-fast) var(--ease-standard);
+        }
+
+        .builder-option.active {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--space-16);
+            }
+
+            .form-group.half {
+                display: block;
+                width: 100%;
+                margin-right: 0;
+            }
+
+            .radio-group {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: var(--space-16);
+            }
+
+            .output-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-16);
+            }
+
+            .output-actions {
+                width: 100%;
+                justify-content: stretch;
+            }
+
+            .utility-buttons {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Error and Success Messages */
+        .message {
+            padding: var(--space-12) var(--space-16);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--space-16);
+            font-size: var(--font-size-sm);
+        }
+
+        .message.error {
+            background: rgba(192, 21, 47, 0.1);
+            color: var(--color-error);
+            border: 1px solid rgba(192, 21, 47, 0.2);
+        }
+
+        .message.success {
+            background: rgba(33, 128, 141, 0.1);
+            color: var(--color-success);
+            border: 1px solid rgba(33, 128, 141, 0.2);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>AI Prompt Generator</h1>
+            <p>Generate Perfect Prompts for Lovable, Bolt, v0 &amp; More</p>
+            <div class="builder-select">
+                <select id="builderSelect">
+                    <option value="lovable">Lovable</option>
+                    <option value="bolt">Bolt.new</option>
+                    <option value="v0">v0.dev</option>
+                    <option value="generic">Generic</option>
+                </select>
+            </div>
+        </header>
+
+        <!-- Utility Buttons -->
+        <div class="utility-buttons">
+            <button class="utility-button" onclick="saveProgress()">💾 Save Progress</button>
+            <button class="utility-button" onclick="loadProgress()">📁 Load Saved</button>
+            <button class="utility-button" onclick="clearForm()">🗑️ Start New</button>
+            <button class="utility-button" onclick="applyTemplate('ecommerce')">🛒 E-commerce Template</button>
+            <button class="utility-button" onclick="applyTemplate('saas')">📊 SaaS Template</button>
+            <button class="utility-button" onclick="applyTemplate('portfolio')">🎨 Portfolio Template</button>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-step active" id="step-1">1</div>
+                <div class="progress-line" id="line-1"></div>
+                <div class="progress-step" id="step-2">2</div>
+                <div class="progress-line" id="line-2"></div>
+                <div class="progress-step" id="step-3">3</div>
+                <div class="progress-line" id="line-3"></div>
+                <div class="progress-step" id="step-4">4</div>
+                <div class="progress-line" id="line-4"></div>
+                <div class="progress-step" id="step-5">5</div>
+                <div class="progress-line" id="line-5"></div>
+                <div class="progress-step" id="step-6">6</div>
+                <div class="progress-line" id="line-6"></div>
+                <div class="progress-step" id="step-7">7</div>
+            </div>
+            <div class="progress-text" id="progressText">Stage 1 of 7: Project Foundation</div>
+        </div>
+
+        <!-- Messages -->
+        <div id="messageContainer"></div>
+
+        <!-- Stage 1: Project Foundation -->
+        <div class="form-stage active" id="stage-1">
+            <h2 class="stage-title">Project Foundation</h2>
+            <p class="stage-description">Let's start with the basics of your project. This information will help shape the entire prompt.</p>
+            
+            <div class="form-group">
+                <label class="form-label required">Project Type</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="projectType" value="website">
+                        <div class="radio-card">Website</div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="projectType" value="webapp">
+                        <div class="radio-card">Web App</div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="projectType" value="ecommerce">
+                        <div class="radio-card">E-commerce Store</div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="projectType" value="saas">
+                        <div class="radio-card">SaaS Dashboard</div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="projectType" value="landing">
+                        <div class="radio-card">Landing Page</div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="projectType" value="portfolio">
+                        <div class="radio-card">Portfolio Site</div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="projectType" value="blog">
+                        <div class="radio-card">Blog/Content Site</div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="projectType" value="directory">
+                        <div class="radio-card">Directory/Listing</div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required" for="projectName">Project/Brand Name</label>
+                <input type="text" id="projectName" class="form-input" placeholder="e.g., TechFlow, GreenEats, Portfolio 2024">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required" for="primaryPurpose">Primary Purpose</label>
+                <textarea id="primaryPurpose" class="form-input form-textarea" placeholder="What is the main goal of this project? What should users be able to accomplish?"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="problemSolved">Problem Being Solved</label>
+                <textarea id="problemSolved" class="form-input form-textarea" placeholder="What specific problem does this project address for your users?"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="successMetrics">Success Metrics</label>
+                <textarea id="successMetrics" class="form-input form-textarea" placeholder="How will you measure the success of this project? (conversions, engagement, etc.)"></textarea>
+            </div>
+        </div>
+
+        <!-- Stage 2: Brand & Visual Identity -->
+        <div class="form-stage" id="stage-2">
+            <h2 class="stage-title">Brand &amp; Visual Identity</h2>
+            <p class="stage-description">Define the visual identity and brand personality for your project.</p>
+            
+            <div class="form-group">
+                <label class="form-label" for="brandValues">Brand Values &amp; Personality</label>
+                <textarea id="brandValues" class="form-input form-textarea" placeholder="e.g., Innovative, trustworthy, approachable, cutting-edge, sustainable, professional"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required">Primary Color</label>
+                <div class="color-input">
+                    <input type="color" id="primaryColor" class="color-picker" value="#1fb8cd">
+                    <input type="text" id="primaryColorHex" class="color-hex" value="#1fb8cd">
+                </div>
+            </div>
+
+            <div class="form-group half">
+                <label class="form-label">Secondary Color</label>
+                <div class="color-input">
+                    <input type="color" id="secondaryColor" class="color-picker" value="#5d878f">
+                    <input type="text" id="secondaryColorHex" class="color-hex" value="#5d878f">
+                </div>
+            </div>
+
+            <div class="form-group half">
+                <label class="form-label">Accent Color</label>
+                <div class="color-input">
+                    <input type="color" id="accentColor" class="color-picker" value="#ffc185">
+                    <input type="text" id="accentColorHex" class="color-hex" value="#ffc185">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required" for="fontStyle">Font Style</label>
+                <select id="fontStyle" class="form-select">
+                    <option value="">Select font style...</option>
+                    <option value="modern">Modern</option>
+                    <option value="classic">Classic</option>
+                    <option value="playful">Playful</option>
+                    <option value="professional">Professional</option>
+                    <option value="minimalist">Minimalist</option>
+                </select>
+            </div>
+
+            <div class="form-group half">
+                <label class="form-label" for="headingFont">Heading Font</label>
+                <input type="text" id="headingFont" class="form-input" placeholder="e.g., Inter, Roboto, Montserrat">
+            </div>
+
+            <div class="form-group half">
+                <label class="form-label" for="bodyFont">Body Font</label>
+                <input type="text" id="bodyFont" class="form-input" placeholder="e.g., Inter, Open Sans, Source Sans Pro">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required" for="aestheticStyle">Aesthetic Style</label>
+                <select id="aestheticStyle" class="form-select">
+                    <option value="">Select aesthetic style...</option>
+                    <option value="minimalist">Minimalist</option>
+                    <option value="bold">Bold</option>
+                    <option value="elegant">Elegant</option>
+                    <option value="playful">Playful</option>
+                    <option value="corporate">Corporate</option>
+                    <option value="modern">Modern</option>
+                    <option value="retro">Retro</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Imagery Style</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="imageryStyle" value="photography">
+                        Photography
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="imageryStyle" value="illustrations">
+                        Illustrations
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="imageryStyle" value="icons">
+                        Icons
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="imageryStyle" value="abstract">
+                        Abstract
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stage 3: Audience & Content -->
+        <div class="form-stage" id="stage-3">
+            <h2 class="stage-title">Audience &amp; Content</h2>
+            <p class="stage-description">Define your target audience and content strategy.</p>
+            
+            <div class="form-group">
+                <label class="form-label required" for="targetAudience">Target Audience Description</label>
+                <textarea id="targetAudience" class="form-input form-textarea" placeholder="Describe your ideal users, their demographics, needs, and behaviors"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Age Range</label>
+                <input type="range" id="ageRange" class="range-input" min="18" max="65" value="35">
+                <div class="range-labels">
+                    <span>18</span>
+                    <span id="ageValue">35</span>
+                    <span>65+</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="geoLocation">Geographic Location</label>
+                <input type="text" id="geoLocation" class="form-input" placeholder="e.g., Global, North America, Europe, Specific cities">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Technical Level</label>
+                <input type="range" id="techLevel" class="range-input" min="1" max="5" value="3">
+                <div class="range-labels">
+                    <span>Beginner</span>
+                    <span id="techValue">Intermediate</span>
+                    <span>Expert</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="industry">Industry/Profession</label>
+                <input type="text" id="industry" class="form-input" placeholder="e.g., Technology, Healthcare, Education, Finance">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required" for="tone">Content Tone</label>
+                <select id="tone" class="form-select">
+                    <option value="">Select tone...</option>
+                    <option value="professional">Professional</option>
+                    <option value="casual">Casual</option>
+                    <option value="friendly">Friendly</option>
+                    <option value="authoritative">Authoritative</option>
+                    <option value="playful">Playful</option>
+                    <option value="inspirational">Inspirational</option>
+                    <option value="technical">Technical</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Formality Level</label>
+                <input type="range" id="formalityLevel" class="range-input" min="1" max="5" value="3">
+                <div class="range-labels">
+                    <span>Very Casual</span>
+                    <span id="formalityValue">Balanced</span>
+                    <span>Very Formal</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Personality Traits</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="personalityTraits" value="innovative">
+                        Innovative
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="personalityTraits" value="trustworthy">
+                        Trustworthy
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="personalityTraits" value="bold">
+                        Bold
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="personalityTraits" value="empathetic">
+                        Empathetic
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="personalityTraits" value="reliable">
+                        Reliable
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="personalityTraits" value="creative">
+                        Creative
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="keyMessages">Key Messages</label>
+                <textarea id="keyMessages" class="form-input form-textarea" placeholder="What are the main messages you want to communicate to your users?"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="primaryCTA">Primary Call-to-Action</label>
+                <input type="text" id="primaryCTA" class="form-input" placeholder="e.g., Get Started, Sign Up, Learn More, Contact Us">
+            </div>
+        </div>
+
+        <!-- Stage 4: Structure & Layout -->
+        <div class="form-stage" id="stage-4">
+            <h2 class="stage-title">Structure &amp; Layout</h2>
+            <p class="stage-description">Define the navigation, pages, and UI components for your project.</p>
+            
+            <div class="form-group">
+                <label class="form-label required">Navigation Style</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="navigationStyle" value="header">
+                        <div class="radio-card">Header Navigation</div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="navigationStyle" value="sidebar">
+                        <div class="radio-card">Sidebar Navigation</div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="navigationStyle" value="hamburger">
+                        <div class="radio-card">Hamburger Menu</div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="navigationStyle" value="mega">
+                        <div class="radio-card">Mega Menu</div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="navigationStyle" value="sticky">
+                        <div class="radio-card">Sticky Header</div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="navigationStyle" value="footer">
+                        <div class="radio-card">Footer Navigation</div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required">Required Pages/Sections</label>
+                <div class="dynamic-list">
+                    <div id="pagesList">
+                        <div class="dynamic-item">
+                            <input type="text" class="form-input" value="Home" placeholder="Page name">
+                            <button type="button" onclick="removePageItem(this)">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-button" onclick="addPageItem()">+ Add Page</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="homepageLayout">Homepage Layout</label>
+                <select id="homepageLayout" class="form-select">
+                    <option value="">Select layout...</option>
+                    <option value="hero">Hero Section</option>
+                    <option value="grid">Grid Layout</option>
+                    <option value="split">Split Screen</option>
+                    <option value="single">Single Page Scroll</option>
+                    <option value="card">Card-based</option>
+                    <option value="magazine">Magazine Style</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">UI Components Needed</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="uiComponents" value="forms">
+                        Forms
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="uiComponents" value="modals">
+                        Modals/Popups
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="uiComponents" value="carousels">
+                        Carousels/Sliders
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="uiComponents" value="accordions">
+                        Accordions
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="uiComponents" value="tabs">
+                        Tabs
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="uiComponents" value="tooltips">
+                        Tooltips
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="uiComponents" value="breadcrumbs">
+                        Breadcrumbs
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="uiComponents" value="search">
+                        Search Bar
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="uiComponents" value="filters">
+                        Filters
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="uiComponents" value="pagination">
+                        Pagination
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="animationPreferences">Animation Preferences</label>
+                <select id="animationPreferences" class="form-select">
+                    <option value="subtle">Subtle</option>
+                    <option value="dynamic">Dynamic</option>
+                    <option value="minimal">Minimal</option>
+                    <option value="none">None</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Stage 5: Features & Functionality -->
+        <div class="form-stage" id="stage-5">
+            <h2 class="stage-title">Features &amp; Functionality</h2>
+            <p class="stage-description">Define the core features, integrations, and technical requirements.</p>
+            
+            <div class="form-group">
+                <label class="form-label required">Core Features</label>
+                <div class="dynamic-list">
+                    <div id="featuresList">
+                        <div class="dynamic-item">
+                            <input type="text" class="form-input" placeholder="Describe a core feature">
+                            <button type="button" onclick="removeFeatureItem(this)">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-button" onclick="addFeatureItem()">+ Add Feature</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-option">
+                    <input type="checkbox" id="userAuth" name="userAuth">
+                    User Authentication Required
+                </label>
+                <div id="authDetails" class="hidden" style="margin-top: var(--space-12);">
+                    <select class="form-select">
+                        <option value="email">Email/Password</option>
+                        <option value="oauth">OAuth (Google, Facebook, etc.)</option>
+                        <option value="auth0">Auth0</option>
+                        <option value="magic">Magic Links</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="formsRequirements">Forms Requirements</label>
+                <textarea id="formsRequirements" class="form-input form-textarea" placeholder="Describe any specific form requirements (contact forms, registration, checkout, etc.)"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Third-party Integrations</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="integrations" value="payment">
+                        Payment Processing
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="integrations" value="analytics">
+                        Analytics
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="integrations" value="crm">
+                        CRM
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="integrations" value="email">
+                        Email Marketing
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="integrations" value="social">
+                        Social Media APIs
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="integrations" value="storage">
+                        Cloud Storage
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="integrations" value="support">
+                        Chat/Support
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-option">
+                    <input type="checkbox" id="realTimeFeatures" name="realTimeFeatures">
+                    Real-time Features (live updates, chat, notifications)
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-option">
+                    <input type="checkbox" id="databaseNeeds" name="databaseNeeds">
+                    Database Required
+                </label>
+                <div id="databaseDetails" class="hidden" style="margin-top: var(--space-12);">
+                    <textarea class="form-input form-textarea" placeholder="Describe the data structure and database requirements"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Performance Priorities</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="performancePriorities" value="speed">
+                        Loading Speed
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="performancePriorities" value="mobile">
+                        Mobile Optimization
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="performancePriorities" value="accessibility">
+                        Accessibility
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="performancePriorities" value="seo">
+                        SEO Optimization
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="accessibilityStandard">Accessibility Standard</label>
+                <select id="accessibilityStandard" class="form-select">
+                    <option value="wcag2aa">WCAG 2.0 AA</option>
+                    <option value="wcag21aa">WCAG 2.1 AA</option>
+                    <option value="wcag21aaa">WCAG 2.1 AAA</option>
+                    <option value="section508">Section 508</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Stage 6: Examples & References -->
+        <div class="form-stage" id="stage-6">
+            <h2 class="stage-title">Examples &amp; References</h2>
+            <p class="stage-description">Provide inspiration URLs and examples to guide the development.</p>
+            
+            <div class="form-group">
+                <label class="form-label">Inspiration URLs</label>
+                <div class="dynamic-list">
+                    <div id="inspirationList">
+                        <div class="dynamic-item">
+                            <input type="url" class="form-input" placeholder="https://example.com">
+                            <input type="text" class="form-input" placeholder="What you like about this site">
+                            <button type="button" onclick="removeInspirationItem(this)">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-button" onclick="addInspirationItem()">+ Add Inspiration</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Competitor Sites</label>
+                <div class="dynamic-list">
+                    <div id="competitorList">
+                        <div class="dynamic-item">
+                            <input type="url" class="form-input" placeholder="https://competitor.com">
+                            <input type="text" class="form-input" placeholder="What to avoid/improve">
+                            <button type="button" onclick="removeCompetitorItem(this)">Remove</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-button" onclick="addCompetitorItem()">+ Add Competitor</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="designElements">Design Elements to Emulate</label>
+                <textarea id="designElements" class="form-input form-textarea" placeholder="Describe specific design patterns, layouts, or UI elements you'd like to incorporate"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="antiPatterns">Anti-patterns to Avoid</label>
+                <textarea id="antiPatterns" class="form-input form-textarea" placeholder="Describe design patterns or approaches you want to avoid"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Wireframes/Mockups</label>
+                <div class="file-upload-placeholder" style="border: 2px dashed var(--color-border); border-radius: var(--radius-base); padding: var(--space-24); text-align: center; background: var(--color-secondary);">
+                    <p style="color: var(--color-text-secondary); margin: 0;">📎 File upload simulation - In a real implementation, users could upload wireframes and mockups here</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stage 7: Constraints & Priorities -->
+        <div class="form-stage" id="stage-7">
+            <h2 class="stage-title">Constraints &amp; Priorities</h2>
+            <p class="stage-description">Define what must be included, what to avoid, and prioritize features.</p>
+            
+            <div class="form-group">
+                <label class="form-label required">Must-Have Features</label>
+                <div id="mustHaveFeatures" class="checkbox-group">
+                    <!-- This will be populated dynamically based on previous inputs -->
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="mustNotHave">Must NOT Have</label>
+                <textarea id="mustNotHave" class="form-input form-textarea" placeholder="List features, elements, or approaches that should NOT be included"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Technical Constraints</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="technicalConstraints" value="specific-frameworks">
+                        Specific Framework Requirements
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="technicalConstraints" value="browser-requirements">
+                        Browser Compatibility Requirements
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="technicalConstraints" value="device-priorities">
+                        Specific Device Priorities
+                    </label>
+                    <label class="checkbox-option">
+                        <input type="checkbox" name="technicalConstraints" value="performance-limits">
+                        Performance Limitations
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="outOfScope">Out of Scope Items</label>
+                <textarea id="outOfScope" class="form-input form-textarea" placeholder="List items that are explicitly out of scope for this project"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Priority Ranking</label>
+                <div class="priority-list" id="priorityList">
+                    <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">Features will be populated here for prioritization once you've filled in the previous stages.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-button secondary" id="prevButton" onclick="previousStage()" disabled>Previous</button>
+            <div class="utility-buttons">
+                <button class="utility-button" onclick="saveProgress()">💾 Save</button>
+                <button class="utility-button" onclick="loadProgress()">📁 Load</button>
+            </div>
+            <button class="nav-button primary" id="nextButton" onclick="nextStage()">Next</button>
+        </div>
+
+        <!-- Output Container -->
+        <div class="output-container" id="outputContainer">
+            <div class="output-header">
+                <h2 class="output-title">Generated Prompt</h2>
+                <div class="output-actions">
+                    <button class="nav-button secondary" onclick="editPrompt()">✏️ Edit</button>
+                    <button class="nav-button secondary" onclick="copyPrompt()">📋 Copy</button>
+                    <button class="nav-button secondary" onclick="downloadPrompt()">💾 Download</button>
+                    <button class="nav-button primary" onclick="startNew()">🆕 Start New</button>
+                </div>
+            </div>
+            
+            <div class="builder-toggle">
+                <label>Builder Optimization:</label>
+                <div class="builder-options">
+                    <button class="builder-option active" onclick="switchBuilder('lovable')">Lovable</button>
+                    <button class="builder-option" onclick="switchBuilder('bolt')">Bolt.new</button>
+                    <button class="builder-option" onclick="switchBuilder('v0')">v0.dev</button>
+                    <button class="builder-option" onclick="switchBuilder('generic')">Generic</button>
+                </div>
+            </div>
+            
+            <div class="output-content" id="promptOutput"></div>
+        </div>
+    </div>
+
+    <script>
+        // Application State
+        let currentStage = 1;
+        const maxStages = 7;
+        let formData = {};
+        let currentBuilder = 'lovable';
+        window.savedProgress = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeApp();
+            setupEventListeners();
+            initDynamicLists();
+            loadSmartDefaults();
+        });
+
+        function initializeApp() {
+            updateProgressIndicator();
+            updateNavigation();
+            syncColorPickers();
+            updateRangeValues();
+        }
+
+        function setupEventListeners() {
+            const builderSelect = document.getElementById('builderSelect');
+            builderSelect.addEventListener('change', function() {
+                currentBuilder = this.value;
+                if (document.getElementById('outputContainer').classList.contains('active')) {
+                    const prompt = buildPrompt(formData, currentBuilder);
+                    document.getElementById('promptOutput').textContent = prompt;
+                    updateBuilderToggle();
+                }
+            });
+
+            // Real-time validation and data collection
+            document.addEventListener('input', (e) => {
+                const target = e.target;
+                if (target.matches('input, textarea, select')) {
+                    collectFormData();
+                    validateFieldVisual(target);
+                    updateNextButtonValidity();
+                }
+            });
+
+            // Radio groups smart defaults
+            document.querySelectorAll('input[name="projectType"]').forEach(r => {
+                r.addEventListener('change', () => {
+                    if (r.checked) applySmartDefaults(r.value);
+                });
+            }
+        });
+
+            // Range labels
+            document.getElementById('ageRange').addEventListener('input', function() {
+                document.getElementById('ageValue').textContent = this.value;
+            });
+            document.getElementById('techLevel').addEventListener('input', function() {
+                const levels = ['Beginner', 'Novice', 'Intermediate', 'Advanced', 'Expert'];
+                document.getElementById('techValue').textContent = levels[this.value - 1];
+            });
+            document.getElementById('formalityLevel').addEventListener('input', function() {
+                const levels = ['Very Casual', 'Casual', 'Balanced', 'Formal', 'Very Formal'];
+                document.getElementById('formalityValue').textContent = levels[this.value - 1];
+            });
+
+            // Conditional visibility
+            const userAuthCheckbox = document.getElementById('userAuth');
+            const authDetails = document.getElementById('authDetails');
+            if (userAuthCheckbox && authDetails) {
+                userAuthCheckbox.addEventListener('change', function() {
+                    authDetails.classList.toggle('hidden', !this.checked);
+                });
+            }
+            const databaseCheckbox = document.getElementById('databaseNeeds');
+            const databaseDetails = document.getElementById('databaseDetails');
+            if (databaseCheckbox && databaseDetails) {
+                databaseCheckbox.addEventListener('change', function() {
+                    databaseDetails.classList.toggle('hidden', !this.checked);
+                });
+            }
+        }
+
+        function updateNextButtonValidity() {
+            const nextButton = document.getElementById('nextButton');
+            nextButton.disabled = !isStageValid(currentStage);
+        }
+
+        function validateFieldVisual(field) {
+            const value = (field.value || '').trim();
+            if (value) {
+                field.classList.add('valid');
+                field.classList.remove('error');
+            } else {
+                field.classList.remove('valid');
+            }
+        }
+
+        function syncColorPickers() {
+            const pairs = [
+                ['primaryColor', 'primaryColorHex'],
+                ['secondaryColor', 'secondaryColorHex'],
+                ['accentColor', 'accentColorHex']
+            ];
+            pairs.forEach(([pickerId, hexId]) => {
+                const picker = document.getElementById(pickerId);
+                const hex = document.getElementById(hexId);
+                if (!picker || !hex) return;
+                picker.addEventListener('input', () => { hex.value = picker.value; collectFormData(); });
+                hex.addEventListener('input', () => { picker.value = hex.value; collectFormData(); });
+            });
+        }
+
+        function updateRangeValues() {
+            document.getElementById('ageValue').textContent = document.getElementById('ageRange').value;
+            const levels = ['Beginner', 'Novice', 'Intermediate', 'Advanced', 'Expert'];
+            document.getElementById('techValue').textContent = levels[document.getElementById('techLevel').value - 1];
+            const fLevels = ['Very Casual', 'Casual', 'Balanced', 'Formal', 'Very Formal'];
+            document.getElementById('formalityValue').textContent = fLevels[document.getElementById('formalityLevel').value - 1];
+        }
+
+        function applySmartDefaults(projectType) {
+            const defaults = {
+                ecommerce: {
+                    pages: ['Home', 'Product Listing', 'Product Detail', 'Cart', 'Checkout', 'My Account', 'Order History'],
+                    features: ['Product catalog with search and filters', 'Shopping cart functionality', 'Checkout with payment', 'User accounts and order history', 'Product reviews and ratings'],
+                    integrations: ['payment', 'analytics'],
+                    uiComponents: ['forms', 'modals', 'search', 'filters', 'pagination']
+                },
+                saas: {
+                    pages: ['Landing Page', 'Pricing', 'Dashboard', 'Settings', 'Admin Panel', 'Documentation'],
+                    features: ['User authentication and authorization', 'Dashboard with key metrics', 'Settings and profile management', 'Subscription/pricing plans', 'Usage analytics'],
+                    integrations: ['analytics', 'email'],
+                    uiComponents: ['forms', 'modals', 'tabs']
+                },
+                portfolio: {
+                    pages: ['Home', 'Portfolio/Projects', 'About', 'Contact', 'Blog'],
+                    features: ['Project gallery with categories', 'Project detail pages', 'About section', 'Contact form', 'Testimonials'],
+                    integrations: ['analytics'],
+                    uiComponents: ['modals', 'carousels']
+                }
+            };
+            const preset = defaults[projectType];
+            if (!preset) return;
+            populatePagesList(preset.pages);
+            populateFeaturesList(preset.features);
+            // Set checkboxes
+            document.querySelectorAll('input[name="integrations"]').forEach(cb => cb.checked = preset.integrations.includes(cb.value));
+            document.querySelectorAll('input[name="uiComponents"]').forEach(cb => cb.checked = preset.uiComponents.includes(cb.value));
+            collectFormData();
+        }
+
+        function isStageValid(stage) {
+            switch (stage) {
+                case 1: {
+                    const typeChecked = !!document.querySelector('input[name="projectType"]:checked');
+                    const nameOk = !!document.getElementById('projectName').value.trim();
+                    const purposeOk = !!document.getElementById('primaryPurpose').value.trim();
+                    return typeChecked && nameOk && purposeOk;
+                }
+                case 2: {
+                    const colorOk = !!document.getElementById('primaryColorHex').value.trim();
+                    const fontStyleOk = !!document.getElementById('fontStyle').value.trim();
+                    const aestheticOk = !!document.getElementById('aestheticStyle').value.trim();
+                    return colorOk && fontStyleOk && aestheticOk;
+                }
+                case 3: {
+                    const audienceOk = !!document.getElementById('targetAudience').value.trim();
+                    const toneOk = !!document.getElementById('tone').value.trim();
+                    return audienceOk && toneOk;
+                }
+                case 4: {
+                    const navOk = !!document.querySelector('input[name="navigationStyle"]:checked');
+                    const pages = collectDynamicListData('pagesList');
+                    return navOk && pages.length > 0;
+                }
+                case 5: {
+                    const features = collectDynamicListData('featuresList');
+                    return features.length > 0;
+                }
+                case 6: return true;
+                case 7: {
+                    const mustHave = collectCheckboxData('mustHaveFeatures');
+                    return mustHave.length > 0;
+                }
+                default: return true;
+            }
+        }
+
+        function nextStage() {
+            if (!isStageValid(currentStage)) {
+                showMessage('Please complete required fields before continuing.', 'error');
+                updateNextButtonValidity();
+                return;
+            }
+            collectFormData();
+            if (currentStage < maxStages) {
+                document.getElementById(`stage-${currentStage}`).classList.remove('active');
+                currentStage++;
+                showStage(currentStage);
+                updateProgressIndicator();
+                updateNavigation();
+                updateNextButtonValidity();
+            } else {
+                generatePrompt();
+            }
+        }
+
+        function previousStage() {
+            if (currentStage === 1) return;
+            document.getElementById(`stage-${currentStage}`).classList.remove('active');
+            currentStage--;
+            showStage(currentStage);
+            updateProgressIndicator();
+            updateNavigation();
+            updateNextButtonValidity();
+        }
+
+        function showStage(stageNumber) {
+            for (let i = 1; i <= maxStages; i++) {
+                const el = document.getElementById(`stage-${i}`);
+                if (el) el.classList.remove('active');
+            }
+            const current = document.getElementById(`stage-${stageNumber}`);
+            if (current) current.classList.add('active');
+            if (stageNumber === 7) {
+                populateMustHaveFeatures();
+                populatePriorityList();
+            }
+            const focusable = current.querySelector('input, textarea, select');
+            if (focusable) setTimeout(() => focusable.focus(), 60);
+        }
+
+        function updateProgressIndicator() {
+            const stageNames = [
+                'Project Foundation',
+                'Brand & Visual Identity',
+                'Audience & Content',
+                'Structure & Layout',
+                'Features & Functionality',
+                'Examples & References',
+                'Constraints & Priorities'
+            ];
+            document.getElementById('progressText').textContent = `Stage ${currentStage} of ${maxStages}: ${stageNames[currentStage - 1]}`;
+            for (let i = 1; i <= maxStages; i++) {
+                const step = document.getElementById(`step-${i}`);
+                const line = document.getElementById(`line-${i}`);
+                if (i < currentStage) {
+                    step.classList.add('completed');
+                    step.classList.remove('active');
+                    if (line) line.classList.add('completed');
+                } else if (i === currentStage) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                } else {
+                    step.classList.remove('active', 'completed');
+                    if (line) line.classList.remove('completed');
+                }
+            }
+        }
+
+        function updateNavigation() {
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            prevButton.disabled = currentStage === 1;
+            nextButton.textContent = currentStage === maxStages ? 'Generate Prompt' : 'Next';
+        }
+
+        function collectFormData() {
+            const inputs = document.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                if (input.type === 'radio') {
+                    if (input.checked) formData[input.name] = input.value;
+                } else if (input.type === 'checkbox') {
+                    if (!formData[input.name]) formData[input.name] = [];
+                    if (input.checked && !formData[input.name].includes(input.value)) {
+                        formData[input.name].push(input.value);
+                    } else if (!input.checked) {
+                        formData[input.name] = formData[input.name].filter(v => v !== input.value);
+                    }
+                    if (input.id === 'userAuth') formData.userAuth = input.checked ? 'on' : '';
+                    if (input.id === 'databaseNeeds') formData.databaseNeeds = input.checked ? 'on' : '';
+                } else if (input.id) {
+                    formData[input.id] = input.value;
+                }
+            });
+            formData.dynamicPages = collectDynamicListData('pagesList');
+            formData.dynamicFeatures = collectDynamicListData('featuresList');
+            formData.inspirations = collectDynamicPairData('inspirationList');
+            formData.competitors = collectDynamicPairData('competitorList');
+        }
+
+        function generatePrompt() {
+            collectFormData();
+            const prompt = buildPrompt(formData, currentBuilder);
+            for (let i = 1; i <= maxStages; i++) {
+                const el = document.getElementById(`stage-${i}`);
+                if (el) el.classList.remove('active');
+            }
+            document.querySelector('.navigation').style.display = 'none';
+            const out = document.getElementById('outputContainer');
+            out.classList.add('active');
+            document.getElementById('promptOutput').textContent = prompt;
+            updateBuilderToggle();
+        }
+
+        function updateBuilderToggle() {
+            document.querySelectorAll('.builder-option').forEach(btn => {
+                btn.classList.remove('active');
+                const key = btn.textContent.toLowerCase();
+                if ((currentBuilder === 'bolt' && key.includes('bolt')) ||
+                    (currentBuilder === 'v0' && key.includes('v0')) ||
+                    (currentBuilder === 'lovable' && key.includes('lovable')) ||
+                    (currentBuilder === 'generic' && key.includes('generic'))) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function switchBuilder(builder) {
+            currentBuilder = builder;
+            updateBuilderToggle();
+            const prompt = buildPrompt(formData, currentBuilder);
+            document.getElementById('promptOutput').textContent = prompt;
+        }
+
+        // Dynamic Lists
+        function initDynamicLists() {
+            if (!document.querySelector('#pagesList .dynamic-item')) addPageItem();
+            if (!document.querySelector('#featuresList .dynamic-item')) addFeatureItem();
+            if (!document.querySelector('#inspirationList .dynamic-item')) addInspirationItem();
+            if (!document.querySelector('#competitorList .dynamic-item')) addCompetitorItem();
+        }
+        function addPageItem() {
+            const list = document.getElementById('pagesList');
+            const item = document.createElement('div');
+            item.className = 'dynamic-item';
+            item.innerHTML = `<input type="text" class="form-input" placeholder="Page name"><button type="button" onclick="removePageItem(this)">Remove</button>`;
+            list.appendChild(item);
+        }
+        function removePageItem(btn) { btn.parentElement.remove(); }
+        function addFeatureItem() {
+            const list = document.getElementById('featuresList');
+            const item = document.createElement('div');
+            item.className = 'dynamic-item';
+            item.innerHTML = `<input type="text" class="form-input" placeholder="Describe a core feature"><button type="button" onclick="removeFeatureItem(this)">Remove</button>`;
+            list.appendChild(item);
+        }
+        function removeFeatureItem(btn) { btn.parentElement.remove(); }
+        function addInspirationItem() {
+            const list = document.getElementById('inspirationList');
+            const item = document.createElement('div');
+            item.className = 'dynamic-item';
+            item.innerHTML = `<input type="url" class="form-input" placeholder="https://example.com"><input type="text" class="form-input" placeholder="What you like about this site"><button type="button" onclick="removeInspirationItem(this)">Remove</button>`;
+            list.appendChild(item);
+        }
+        function removeInspirationItem(btn) { btn.parentElement.remove(); }
+        function addCompetitorItem() {
+            const list = document.getElementById('competitorList');
+            const item = document.createElement('div');
+            item.className = 'dynamic-item';
+            item.innerHTML = `<input type="url" class="form-input" placeholder="https://competitor.com"><input type="text" class="form-input" placeholder="What to avoid/improve"><button type="button" onclick="removeCompetitorItem(this)">Remove</button>`;
+            list.appendChild(item);
+        }
+        function removeCompetitorItem(btn) { btn.parentElement.remove(); }
+
+        function populatePagesList(pages) {
+            const list = document.getElementById('pagesList');
+            list.innerHTML = '';
+            pages.forEach(p => {
+                const item = document.createElement('div');
+                item.className = 'dynamic-item';
+                item.innerHTML = `<input type="text" class="form-input" value="${p}"><button type="button" onclick="removePageItem(this)">Remove</button>`;
+                list.appendChild(item);
+            });
+        }
+        function populateFeaturesList(features) {
+            const list = document.getElementById('featuresList');
+            list.innerHTML = '';
+            features.forEach(f => {
+                const item = document.createElement('div');
+                item.className = 'dynamic-item';
+                item.innerHTML = `<input type="text" class="form-input" value="${f}"><button type="button" onclick="removeFeatureItem(this)">Remove</button>`;
+                list.appendChild(item);
+            });
+        }
+
+        function collectDynamicListData(listId) {
+            const items = [];
+            document.querySelectorAll(`#${listId} input`).forEach(inp => {
+                const val = (inp.value || '').trim();
+                if (val) items.push(val);
+            });
+            return items;
+        }
+        function collectDynamicPairData(listId) {
+            const items = [];
+            document.querySelectorAll(`#${listId} .dynamic-item`).forEach(div => {
+                const [urlInput, descInput] = div.querySelectorAll('input');
+                const url = urlInput ? (urlInput.value || '').trim() : '';
+                if (url) items.push({ url, description: (descInput && descInput.value.trim()) || 'No description provided' });
+            });
+            return items;
+        }
+        function collectCheckboxData(name) {
+            const vals = [];
+            document.querySelectorAll(`input[name="${name}"]:checked`).forEach(cb => vals.push(cb.value));
+            return vals;
+        }
+
+        function populateMustHaveFeatures() {
+            const container = document.getElementById('mustHaveFeatures');
+            container.innerHTML = '';
+            const features = collectDynamicListData('featuresList');
+            const ui = collectCheckboxData('uiComponents').map(v => `UI: ${v}`);
+            const integ = collectCheckboxData('integrations').map(v => `Integration: ${v}`);
+            const extras = [];
+            if (document.getElementById('userAuth').checked) extras.push('User Authentication');
+            if (document.getElementById('databaseNeeds').checked) extras.push('Database');
+            const all = [...features, ...ui, ...integ, ...extras];
+            if (all.length === 0) {
+                container.innerHTML = '<p style="color: var(--color-text-secondary);">Complete previous stages to see features here.</p>';
+                return;
+            }
+            all.forEach(f => {
+                const label = document.createElement('label');
+                label.className = 'checkbox-option';
+                label.innerHTML = `<input type="checkbox" name="mustHaveFeatures" value="${f}"> ${f}`;
+                container.appendChild(label);
+            });
+        }
+        function populatePriorityList() {
+            const list = document.getElementById('priorityList');
+            list.innerHTML = '<div style="border:1px solid var(--color-border);padding:12px;border-radius:8px;background:var(--color-secondary);">\
+<strong>Priority Order:</strong><br>1. Must-have features<br>2. Core functionality<br>3. UI/UX enhancements<br>4. Nice-to-haves</div>';
+        }
+
+        // Templates
+        function applyTemplate(type) {
+            const map = {
+                ecommerce: () => {
+                    document.querySelector('input[name="projectType"][value="ecommerce"]').checked = true;
+                    document.getElementById('projectName').value = 'ShopSphere';
+                    document.getElementById('primaryPurpose').value = 'Enable users to discover, compare, and buy products seamlessly with a fast checkout.';
+                    document.getElementById('brandValues').value = 'Trustworthy, modern, customer-first, reliable';
+                    document.getElementById('fontStyle').value = 'modern';
+                    document.getElementById('aestheticStyle').value = 'minimalist';
+                    populatePagesList(['Home','Product Listing','Product Detail','Cart','Checkout','My Account','Order History']);
+                    populateFeaturesList(['Product catalog with search and filters','Shopping cart functionality','Checkout process with payment integration','User accounts and order history','Product reviews and ratings']);
+                    document.querySelector('input[name="navigationStyle"][value="header"]').checked = true;
+                    document.getElementById('homepageLayout').value = 'hero';
+                },
+                saas: () => {
+                    document.querySelector('input[name="projectType"][value="saas"]').checked = true;
+                    document.getElementById('projectName').value = 'MetricMind';
+                    document.getElementById('primaryPurpose').value = 'Provide a real-time analytics dashboard for SMBs with actionable insights.';
+                    document.getElementById('brandValues').value = 'Innovative, expert, dependable';
+                    document.getElementById('fontStyle').value = 'professional';
+                    document.getElementById('aestheticStyle').value = 'modern';
+                    populatePagesList(['Landing Page','Pricing','Dashboard','Settings','Admin Panel','Documentation']);
+                    populateFeaturesList(['User authentication and authorization','Dashboard with key metrics','Settings and profile management','Subscription/pricing plans','Admin panel']);
+                    document.querySelector('input[name="navigationStyle"][value="sidebar"]').checked = true;
+                    document.getElementById('homepageLayout').value = 'hero';
+                },
+                portfolio: () => {
+                    document.querySelector('input[name="projectType"][value="portfolio"]').checked = true;
+                    document.getElementById('projectName').value = 'Studio Aurora';
+                    document.getElementById('primaryPurpose').value = 'Showcase design work, attract clients, and enable easy contact.';
+                    document.getElementById('brandValues').value = 'Creative, bold, personable';
+                    document.getElementById('fontStyle').value = 'playful';
+                    document.getElementById('aestheticStyle').value = 'elegant';
+                    populatePagesList(['Home','Portfolio','About','Contact','Blog']);
+                    populateFeaturesList(['Project gallery with categories','Project detail pages','About section','Contact form','Testimonials']);
+                    document.querySelector('input[name="navigationStyle"][value="header"]').checked = true;
+                    document.getElementById('homepageLayout').value = 'grid';
+                }
+            };
+            if (map[type]) {
+                map[type]();
+                collectFormData();
+                updateNextButtonValidity();
+                showMessage('Template applied. You can customize further.', 'success');
+            }
+        }
+
+        // Prompt builder
+        function buildPrompt(data, builder) {
+            const builderConfig = {
+                lovable: {
+                    name: 'Lovable',
+                    emphasize: ['React', 'TypeScript', 'Tailwind CSS', 'Supabase'],
+                    notes: 'Use a component-based approach with step-by-step implementation and Tailwind utility classes.'
+                },
+                bolt: {
+                    name: 'Bolt.new',
+                    emphasize: ['Explicit file structure', 'Clear tech stack', 'Deployment config'],
+                    notes: 'Provide a clear project structure, dependencies, and build steps.'
+                },
+                v0: {
+                    name: 'v0.dev',
+                    emphasize: ['React', 'TypeScript', 'shadcn/ui components'],
+                    notes: 'Focus on component composition and accessibility.'
+                },
+                generic: {
+                    name: 'Generic',
+                    emphasize: ['Standards-based', 'Responsive', 'Accessible'],
+                    notes: 'Framework-agnostic best practices.'
+                }
+            }[builder];
+
+            const pages = data.dynamicPages || [];
+            const features = data.dynamicFeatures || [];
+            const ui = (data.uiComponents || []).join(', ');
+            const integrations = (data.integrations || []).join(', ');
+            const mustHaves = collectCheckboxData('mustHaveFeatures');
+
+            const lines = [];
+            lines.push(`SECTION 1: Role & Context`);
+            lines.push(`You are an expert ${data.projectType || 'web'} developer specializing in ${builderConfig.name}. Build a production-ready ${data.projectName || 'application'} using a modern stack. Emphasize: ${builderConfig.emphasize.join(', ')}. ${builderConfig.notes}`);
+            lines.push('');
+
+            lines.push('SECTION 2: Project Overview');
+            lines.push(`Purpose: ${data.primaryPurpose || 'N/A'}`);
+            if (data.targetAudience) lines.push(`Audience: ${data.targetAudience}`);
+            if (data.problemSolved) lines.push(`Problem: ${data.problemSolved}`);
+            if (data.successMetrics) lines.push(`Success Metrics: ${data.successMetrics}`);
+            lines.push('');
+
+            lines.push('SECTION 3: Brand Identity');
+            if (data.brandValues) lines.push(`Personality & Values: ${data.brandValues}`);
+            lines.push(`Visuals: Primary ${data.primaryColorHex || '#1FB8CD'}, Secondary ${data.secondaryColorHex || '#5D878F'}, Accent ${data.accentColorHex || '#FFC185'}`);
+            lines.push(`Typography: ${data.fontStyle || 'Modern'}; Heading ${data.headingFont || 'system'}, Body ${data.bodyFont || 'system'}; Aesthetic ${data.aestheticStyle || 'Modern'}`);
+            lines.push(`Tone & Voice: ${data.tone || 'Professional'}; Formality: ${document.getElementById('formalityValue').textContent}`);
+            lines.push('');
+
+            lines.push('SECTION 4: Technical Stack (builder-specific)');
+            if (builder === 'lovable') {
+                lines.push('Use React + TypeScript, Tailwind CSS; Supabase for auth & data.');
+            } else if (builder === 'bolt') {
+                lines.push('Provide explicit file structure, dependencies, and deployment steps.');
+            } else if (builder === 'v0') {
+                lines.push('Use React + TypeScript with shadcn/ui components.');
+            } else {
+                lines.push('Framework-agnostic, standards-based stack with responsive, accessible design.');
+            }
+            if (data.userAuth === 'on') lines.push('Authentication: Required.');
+            if (data.databaseNeeds === 'on') lines.push('Data Management: Database required.');
+            if (integrations) lines.push(`Integrations: ${integrations}`);
+            lines.push('');
+
+            lines.push('SECTION 5: Structure & Layout');
+            if (pages.length) lines.push(`Pages: ${pages.join(', ')}`);
+            if (data.navigationStyle) lines.push(`Navigation: ${data.navigationStyle}`);
+            if (data.homepageLayout) lines.push(`Homepage Layout: ${data.homepageLayout}`);
+            if (ui) lines.push(`Components: ${ui}`);
+            lines.push('Responsive: Mobile-first, optimized for desktop and tablets.');
+            lines.push('');
+
+            lines.push('SECTION 6: Features & Functionality');
+            features.forEach((f, i) => lines.push(`${i + 1}. ${f}`));
+            if (data.formsRequirements) lines.push(`Forms: ${data.formsRequirements}`);
+            if (data.realTimeFeatures === 'on') lines.push('Real-time features needed (live updates/notifications).');
+            lines.push('');
+
+            lines.push('SECTION 7: Content Guidelines');
+            if (data.keyMessages) lines.push(`Key Messages: ${data.keyMessages}`);
+            if (data.primaryCTA) lines.push(`Primary CTA: ${data.primaryCTA}`);
+            lines.push(`Tone: ${data.tone || 'Professional'}; Formality level: ${document.getElementById('formalityValue').textContent}`);
+            lines.push('');
+
+            lines.push('SECTION 8: Design Specifications');
+            lines.push(`Colors: Primary ${data.primaryColorHex || '#1FB8CD'}, Secondary ${data.secondaryColorHex || '#5D878F'}, Accent ${data.accentColorHex || '#FFC185'}`);
+            lines.push(`Typography: Style ${data.fontStyle || 'Modern'}; Heading ${data.headingFont || 'system'}; Body ${data.bodyFont || 'system'}`);
+            lines.push('Spacing: Consistent spacing scale; use 8px base multiple.');
+            lines.push('');
+
+            lines.push('SECTION 9: Constraints & Requirements');
+            if (mustHaves.length) { lines.push('Must-haves:'); mustHaves.forEach(m => lines.push(`- ${m}`)); }
+            if (data.mustNotHave) lines.push(`Must-NOT have: ${data.mustNotHave}`);
+            const perf = collectCheckboxData('performancePriorities');
+            if (perf.length) lines.push(`Performance Priorities: ${perf.join(', ')}`);
+            if (data.accessibilityStandard) lines.push(`Accessibility: ${data.accessibilityStandard}`);
+            lines.push('SEO: Semantic HTML, metadata, Open Graph, and structured data where helpful.');
+            lines.push('');
+
+            lines.push('SECTION 10: Quality Standards');
+            lines.push('Clean, maintainable code; comments where useful; error handling; loading states; cross-browser testing.');
+            lines.push('');
+
+            lines.push('SECTION 11: Starting Point');
+            lines.push(`Start by scaffolding the project, setting up routing & layout, then implement the core flows prioritized as: ${mustHaves.slice(0,3).join(', ') || 'Core pages and navigation'}.`);
+
+            return lines.join('\n');
+        }
+
+        // Clipboard & Download
+        function copyPrompt() {
+            const text = document.getElementById('promptOutput').textContent;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => showMessage('Copied!', 'success')).catch(() => fallbackCopy(text));
+            } else { fallbackCopy(text); }
+        }
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text; document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); showMessage('Copied!', 'success'); } catch(e) { showMessage('Copy failed. Select the text manually.', 'error'); }
+            document.body.removeChild(ta);
+        }
+        function downloadPrompt() {
+            const text = document.getElementById('promptOutput').textContent;
+            const filename = `${(formData.projectName || 'AI-Prompt').replace(/\s+/g,'-')}-${currentBuilder}.txt`;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+            showMessage('Downloaded!', 'success');
+        }
+
+        // Edit & Reset & Save/Load
+        function editPrompt() {
+            document.getElementById('outputContainer').classList.remove('active');
+            document.querySelector('.navigation').style.display = 'flex';
+            showStage(currentStage);
+        }
+        function startNew() { if (confirm('Start a new prompt?')) clearForm(); }
+        function clearForm() {
+            currentStage = 1; formData = {}; currentBuilder = 'lovable';
+            document.querySelectorAll('input, textarea, select').forEach(el => {
+                if (el.type === 'radio' || el.type === 'checkbox') el.checked = false; else el.value = '';
+                el.classList.remove('valid','error');
+            });
+            // reset dynamic lists
+            document.getElementById('pagesList').innerHTML = '';
+            document.getElementById('featuresList').innerHTML = '';
+            document.getElementById('inspirationList').innerHTML = '';
+            document.getElementById('competitorList').innerHTML = '';
+            initDynamicLists();
+            loadSmartDefaults();
+            document.getElementById('builderSelect').value = 'lovable';
+            document.getElementById('outputContainer').classList.remove('active');
+            document.querySelector('.navigation').style.display = 'flex';
+            showStage(1); updateProgressIndicator(); updateNavigation(); updateNextButtonValidity();
+            showMessage('Form cleared.', 'success');
+        }
+        function saveProgress() {
+            collectFormData();
+            window.savedProgress = { formData, currentStage, currentBuilder, timestamp: Date.now() };
+            showMessage('Progress saved to current session!', 'success');
+        }
+        function loadProgress() {
+            const saved = window.savedProgress;
+            if (!saved) { showMessage('No saved progress found.', 'error'); return; }
+            formData = saved.formData || {}; currentStage = saved.currentStage || 1; currentBuilder = saved.currentBuilder || 'lovable';
+            restoreFormFields();
+            document.getElementById('builderSelect').value = currentBuilder;
+            showStage(currentStage); updateProgressIndicator(); updateNavigation(); updateNextButtonValidity();
+            showMessage('Progress loaded.', 'success');
+        }
+        function restoreFormFields() {
+            Object.keys(formData).forEach(key => {
+                const val = formData[key];
+                const el = document.getElementById(key);
+                if (el) { el.value = val; }
+            });
+            if (formData.projectType) {
+                const r = document.querySelector(`input[name="projectType"][value="${formData.projectType}"]`);
+                if (r) r.checked = true;
+            }
+            if (formData.navigationStyle) {
+                const r = document.querySelector(`input[name="navigationStyle"][value="${formData.navigationStyle}"]`);
+                if (r) r.checked = true;
+            }
+            populatePagesList(formData.dynamicPages || ['Home']);
+            populateFeaturesList(formData.dynamicFeatures || ['Core feature']);
+            // checkboxes arrays
+            (formData.uiComponents || []).forEach(v => { const cb = document.querySelector(`input[name="uiComponents"][value="${v}"]`); if (cb) cb.checked = true; });
+            (formData.integrations || []).forEach(v => { const cb = document.querySelector(`input[name="integrations"][value="${v}"]`); if (cb) cb.checked = true; });
+            if (formData.userAuth === 'on') document.getElementById('userAuth').checked = true;
+            if (formData.databaseNeeds === 'on') document.getElementById('databaseNeeds').checked = true;
+            updateRangeValues();
+        }
+
+        function showMessage(text, type) {
+            const container = document.getElementById('messageContainer');
+            const div = document.createElement('div');
+            div.className = `message ${type}`;
+            div.textContent = text;
+            container.appendChild(div);
+            setTimeout(() => { if (div.parentNode) div.parentNode.removeChild(div); }, 2500);
+        }
+
+        function loadSmartDefaults() {
+            document.getElementById('primaryColor').value = '#1fb8cd';
+            document.getElementById('primaryColorHex').value = '#1fb8cd';
+            document.getElementById('secondaryColor').value = '#5d878f';
+            document.getElementById('secondaryColorHex').value = '#5d878f';
+            document.getElementById('accentColor').value = '#ffc185';
+            document.getElementById('accentColorHex').value = '#ffc185';
+        }
+
+        function initializeApp() {
+            updateProgressIndicator();
+            updateNavigation();
+            
+            // Set up color picker synchronization
+            syncColorPickers();
+            
+            // Set up range sliders
+            updateRangeValues();
+        }
+
+        function setupEventListeners() {
+            // Builder selection
+            document.getElementById('builderSelect').addEventListener('change', function() {
+                currentBuilder = this.value;
+            });
+
+            // Form inputs
+            const inputs = document.querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    validateField(this);
+                    collectFormData();
+                });
+                input.addEventListener('input', function() {
+                    validateField(this);
+                    collectFormData();
+                });
+            }
+        }););
+
+            // Project type changes for smart defaults
+            document.querySelectorAll('input[name="projectType"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.checked) {
+                        applySmartDefaults(this.value);
+                    }
+                });
+            });
+
+            // Range slider updates
+            document.getElementById('ageRange').addEventListener('input', function() {
+                document.getElementById('ageValue').textContent = this.value;
+            });
+            
+            document.getElementById('techLevel').addEventListener('input', function() {
+                const levels = ['Beginner', 'Novice', 'Intermediate', 'Advanced', 'Expert'];
+                document.getElementById('techValue').textContent = levels[this.value - 1];
+            });
+            
+            document.getElementById('formalityLevel').addEventListener('input', function() {
+                const levels = ['Very Casual', 'Casual', 'Balanced', 'Formal', 'Very Formal'];
+                document.getElementById('formalityValue').textContent = levels[this.value - 1];
+            });
+        }
+
+        function syncColorPickers() {
+            const colorPairs = [
+                ['primaryColor', 'primaryColorHex'],
+                ['secondaryColor', 'secondaryColorHex'],
+                ['accentColor', 'accentColorHex']
+            ];
+
+            colorPairs.forEach(([pickerId, hexId]) => {
+                const picker = document.getElementById(pickerId);
+                const hex = document.getElementById(hexId);
+                
+                picker.addEventListener('input', function() {
+                    hex.value = this.value;
+                });
+                
+                hex.addEventListener('input', function() {
+                    picker.value = this.value;
+                });
+            });
+        }
+
+        function updateRangeValues() {
+            document.getElementById('ageValue').textContent = document.getElementById('ageRange').value;
+            
+            const techLevel = document.getElementById('techLevel').value;
+            const levels = ['Beginner', 'Novice', 'Intermediate', 'Advanced', 'Expert'];
+            document.getElementById('techValue').textContent = levels[techLevel - 1];
+            
+            const formalityLevel = document.getElementById('formalityLevel').value;
+            const formalityLevels = ['Very Casual', 'Casual', 'Balanced', 'Formal', 'Very Formal'];
+            document.getElementById('formalityValue').textContent = formalityLevels[formalityLevel - 1];
+        }
+
+        function applySmartDefaults(projectType) {
+            // Apply smart defaults based on project type
+            const defaults = {
+                ecommerce: {
+                    pages: ['Home', 'Products', 'Product Details', 'Cart', 'Checkout', 'My Account'],
+                    features: ['Product catalog with search', 'Shopping cart', 'Checkout process', 'User accounts', 'Order history'],
+                    integrations: ['payment', 'analytics'],
+                    uiComponents: ['forms', 'modals', 'search', 'filters', 'pagination']
+                },
+                saas: {
+                    pages: ['Landing Page', 'Pricing', 'Dashboard', 'Settings', 'Admin Panel'],
+                    features: ['User authentication', 'Dashboard with metrics', 'Settings management', 'Subscription handling'],
+                    integrations: ['analytics', 'email'],
+                    uiComponents: ['forms', 'modals', 'tabs']
+                },
+                portfolio: {
+                    pages: ['Home', 'Portfolio', 'About', 'Contact'],
+                    features: ['Project gallery', 'Contact form', 'About section'],
+                    integrations: ['analytics'],
+                    uiComponents: ['modals', 'carousels']
+                },
+                blog: {
+                    pages: ['Home', 'Blog', 'Post', 'About', 'Contact'],
+                    features: ['Blog post management', 'Categories', 'Search', 'Comments'],
+                    integrations: ['analytics', 'social'],
+                    uiComponents: ['search', 'filters', 'pagination']
+                }
+            };
+
+            if (defaults[projectType]) {
+                const projectDefaults = defaults[projectType];
+                
+                // Set default pages
+                if (projectDefaults.pages) {
+                    populatePagesList(projectDefaults.pages);
+                }
+                
+                // Set default features
+                if (projectDefaults.features) {
+                    populateFeaturesList(projectDefaults.features);
+                }
+                
+                // Set default integrations
+                if (projectDefaults.integrations) {
+                    projectDefaults.integrations.forEach(integration => {
+                        const checkbox = document.querySelector(`input[name="integrations"][value="${integration}"]`);
+                        if (checkbox) checkbox.checked = true;
+                    });
+                }
+                
+                // Set default UI components
+                if (projectDefaults.uiComponents) {
+                    projectDefaults.uiComponents.forEach(component => {
+                        const checkbox = document.querySelector(`input[name="uiComponents"][value="${component}"]`);
+                        if (checkbox) checkbox.checked = true;
+                    });
+                }
+            }
+            
+            collectFormData();
+        }
+        
+
+
+        function loadSmartDefaults() {
+            // Set some reasonable defaults
+            document.getElementById('primaryColor').value = '#1fb8cd';
+            document.getElementById('primaryColorHex').value = '#1fb8cd';
+            document.getElementById('secondaryColor').value = '#5d878f';
+            document.getElementById('secondaryColorHex').value = '#5d878f';
+            document.getElementById('accentColor').value = '#ffc185';
+            document.getElementById('accentColorHex').value = '#ffc185';
+        }
+
+
+
+
+
+
+
+        function updateProgressIndicator() {
+            const progressText = document.getElementById('progressText');
+            const stageNames = [
+                'Project Foundation',
+                'Brand & Visual Identity', 
+                'Audience & Content',
+                'Structure & Layout',
+                'Features & Functionality', 
+                'Examples & References',
+                'Constraints & Priorities'
+            ];
+            
+            progressText.textContent = `Stage ${currentStage} of ${maxStages}: ${stageNames[currentStage - 1]}`;
+            
+            // Update step indicators
+            for (let i = 1; i <= maxStages; i++) {
+                const step = document.getElementById(`step-${i}`);
+                const line = document.getElementById(`line-${i}`);
+                
+                if (i < currentStage) {
+                    step.classList.add('completed');
+                    step.classList.remove('active');
+                    if (line) line.classList.add('completed');
+                } else if (i === currentStage) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                } else {
+                    step.classList.remove('active', 'completed');
+                    if (line) line.classList.remove('completed');
+                }
+            }
+        }
+
+
+
+
+
+        function buildPrompt(data, builder) {
+            const builderConfig = {
+                lovable: {
+                    name: 'Lovable',
+                    framework: 'React with TypeScript and Tailwind CSS',
+                    backend: 'Supabase for authentication and database',
+                    approach: 'component-based development with step-by-step instructions'
+                },
+                bolt: {
+                    name: 'Bolt.new',
+                    framework: 'flexible framework selection',
+                    backend: 'adaptable backend solutions',
+                    approach: 'comprehensive file structure and technical stack guidance'
+                },
+                v0: {
+                    name: 'v0.dev',
+                    framework: 'React with TypeScript and shadcn/ui components',
+                    backend: 'modern web standards',
+                    approach: 'component-focused development with reusable UI elements'
+                },
+                generic: {
+                    name: 'any AI builder',
+                    framework: 'modern web technologies',
+                    backend: 'appropriate backend solutions',
+                    approach: 'best practices and standards-based development'
+                }
+            };
+
+            const config = builderConfig[builder];
+            
+            let prompt = `# ${data.projectName || 'Project'} - AI Development Prompt\n\n`;
+            
+            prompt += `## Role & Context\n`;
+            prompt += `You are an expert ${data.projectType || 'web'} developer specializing in ${config.name}. You will create a production-ready ${data.projectName || 'application'} using ${config.framework}${config.backend ? ' with ' + config.backend : ''}. Focus on ${config.approach}.\n\n`;
+            
+            prompt += `## Project Overview\n`;
+            prompt += `**Project Name:** ${data.projectName || 'Unnamed Project'}\n`;
+            prompt += `**Type:** ${data.projectType || 'Web Application'}\n`;
+            prompt += `**Purpose:** ${data.primaryPurpose || 'Not specified'}\n`;
+            if (data.problemSolved) {
+                prompt += `**Problem Solved:** ${data.problemSolved}\n`;
+            }
+            if (data.successMetrics) {
+                prompt += `**Success Metrics:** ${data.successMetrics}\n`;
+            }
+            prompt += `\n`;
+            
+            if (data.brandValues || data.primaryColorHex || data.fontStyle) {
+                prompt += `## Brand Identity\n`;
+                if (data.brandValues) {
+                    prompt += `**Brand Values & Personality:** ${data.brandValues}\n`;
+                }
+                prompt += `**Visual Specifications:**\n`;
+                if (data.primaryColorHex) {
+                    prompt += `- Primary Color: ${data.primaryColorHex}\n`;
+                }
+                if (data.secondaryColorHex) {
+                    prompt += `- Secondary Color: ${data.secondaryColorHex}\n`;
+                }
+                if (data.accentColorHex) {
+                    prompt += `- Accent Color: ${data.accentColorHex}\n`;
+                }
+                if (data.fontStyle) {
+                    prompt += `- Typography Style: ${data.fontStyle}\n`;
+                }
+                if (data.headingFont) {
+                    prompt += `- Heading Font: ${data.headingFont}\n`;
+                }
+                if (data.bodyFont) {
+                    prompt += `- Body Font: ${data.bodyFont}\n`;
+                }
+                if (data.aestheticStyle) {
+                    prompt += `- Aesthetic: ${data.aestheticStyle}\n`;
+                }
+                prompt += `\n`;
+            }
+            
+            if (data.targetAudience || data.tone) {
+                prompt += `## Target Audience & Content Strategy\n`;
+                if (data.targetAudience) {
+                    prompt += `**Target Audience:** ${data.targetAudience}\n`;
+                }
+                if (data.ageRange) {
+                    prompt += `**Age Range:** Around ${data.ageRange} years old\n`;
+                }
+                if (data.geoLocation) {
+                    prompt += `**Geographic Focus:** ${data.geoLocation}\n`;
+                }
+                if (data.industry) {
+                    prompt += `**Industry Context:** ${data.industry}\n`;
+                }
+                if (data.tone) {
+                    prompt += `**Content Tone:** ${data.tone}\n`;
+                }
+                if (data.keyMessages) {
+                    prompt += `**Key Messages:** ${data.keyMessages}\n`;
+                }
+                if (data.primaryCTA) {
+                    prompt += `**Primary Call-to-Action:** ${data.primaryCTA}\n`;
+                }
+                prompt += `\n`;
+            }
+            
+            prompt += `## Technical Requirements\n`;
+            if (builder === 'lovable') {
+                prompt += `- Use React with TypeScript\n`;
+                prompt += `- Implement with Tailwind CSS for styling\n`;
+                prompt += `- Use Supabase for backend services\n`;
+                prompt += `- Create reusable, well-documented components\n`;
+                prompt += `- Follow React best practices and hooks patterns\n`;
+            } else if (builder === 'bolt') {
+                prompt += `- Provide clear file structure recommendations\n`;
+                prompt += `- Specify appropriate technology stack\n`;
+                prompt += `- Include package.json dependencies\n`;
+                prompt += `- Provide deployment configuration\n`;
+            } else if (builder === 'v0') {
+                prompt += `- Use React with TypeScript\n`;
+                prompt += `- Leverage shadcn/ui component library\n`;
+                prompt += `- Focus on component composition\n`;
+                prompt += `- Ensure accessibility compliance\n`;
+            } else {
+                prompt += `- Use modern web development best practices\n`;
+                prompt += `- Ensure responsive design\n`;
+                prompt += `- Implement proper accessibility standards\n`;
+                prompt += `- Follow semantic HTML structure\n`;
+            }
+            prompt += `\n`;
+            
+            prompt += `## Design Specifications\n`;
+            prompt += `- **Color Palette:** Primary ${data.primaryColorHex || '#1fb8cd'}, Secondary ${data.secondaryColorHex || '#5d878f'}, Accent ${data.accentColorHex || '#ffc185'}\n`;
+            prompt += `- **Typography:** ${data.fontStyle || 'Modern'} style with ${data.headingFont || 'system fonts'} for headings\n`;
+            prompt += `- **Aesthetic:** ${data.aestheticStyle || 'Modern'} design approach\n`;
+            prompt += `- **Layout:** Clean, intuitive, and user-focused\n`;
+            prompt += `- **Responsive:** Mobile-first approach with desktop optimization\n`;
+            prompt += `\n`;
+            
+            // Add Structure & Layout section
+            if (data.navigationStyle || data.homepageLayout) {
+                prompt += `## Structure & Layout\n`;
+                if (data.navigationStyle) {
+                    prompt += `**Navigation Style:** ${data.navigationStyle}\n`;
+                }
+                if (data.homepageLayout) {
+                    prompt += `**Homepage Layout:** ${data.homepageLayout}\n`;
+                }
+                
+                // Add pages from dynamic list
+                const pages = collectDynamicListData('pagesList');
+                if (pages.length > 0) {
+                    prompt += `**Required Pages:** ${pages.join(', ')}\n`;
+                }
+                
+                // Add UI components
+                const uiComponents = collectCheckboxData('uiComponents');
+                if (uiComponents.length > 0) {
+                    prompt += `**UI Components:** ${uiComponents.join(', ')}\n`;
+                }
+                
+                if (data.animationPreferences) {
+                    prompt += `**Animation Style:** ${data.animationPreferences}\n`;
+                }
+                prompt += `\n`;
+            }
+            
+            // Add Features & Functionality section
+            prompt += `## Core Features & Functionality\n`;
+            const coreFeatures = collectDynamicListData('featuresList');
+            if (coreFeatures.length > 0) {
+                coreFeatures.forEach((feature, index) => {
+                    prompt += `${index + 1}. ${feature}\n`;
+                });
+            }
+            
+            if (data.userAuth === 'on') {
+                prompt += `- User authentication system\n`;
+            }
+            
+            if (data.formsRequirements) {
+                prompt += `- Forms: ${data.formsRequirements}\n`;
+            }
+            
+            const integrations = collectCheckboxData('integrations');
+            if (integrations.length > 0) {
+                prompt += `- Integrations: ${integrations.join(', ')}\n`;
+            }
+            
+            if (data.realTimeFeatures === 'on') {
+                prompt += `- Real-time features (live updates, notifications)\n`;
+            }
+            
+            if (data.databaseNeeds === 'on') {
+                prompt += `- Database functionality required\n`;
+            }
+            
+            const performancePriorities = collectCheckboxData('performancePriorities');
+            if (performancePriorities.length > 0) {
+                prompt += `- Performance Focus: ${performancePriorities.join(', ')}\n`;
+            }
+            
+            if (data.accessibilityStandard) {
+                prompt += `- Accessibility Standard: ${data.accessibilityStandard}\n`;
+            }
+            prompt += `\n`;
+            
+            // Add Examples & References section
+            const inspirations = collectDynamicPairData('inspirationList');
+            const competitors = collectDynamicPairData('competitorList');
+            
+            if (inspirations.length > 0 || competitors.length > 0 || data.designElements || data.antiPatterns) {
+                prompt += `## Examples & References\n`;
+                
+                if (inspirations.length > 0) {
+                    prompt += `**Inspiration Sites:**\n`;
+                    inspirations.forEach(item => {
+                        prompt += `- ${item.url}: ${item.description}\n`;
+                    });
+                }
+                
+                if (competitors.length > 0) {
+                    prompt += `**Competitor Analysis:**\n`;
+                    competitors.forEach(item => {
+                        prompt += `- ${item.url}: ${item.description}\n`;
+                    });
+                }
+                
+                if (data.designElements) {
+                    prompt += `**Design Elements to Emulate:** ${data.designElements}\n`;
+                }
+                
+                if (data.antiPatterns) {
+                    prompt += `**Anti-patterns to Avoid:** ${data.antiPatterns}\n`;
+                }
+                prompt += `\n`;
+            }
+            
+            // Add Constraints & Priorities section
+            const mustHaveFeatures = collectCheckboxData('mustHaveFeatures');
+            const technicalConstraints = collectCheckboxData('technicalConstraints');
+            
+            if (mustHaveFeatures.length > 0 || data.mustNotHave || technicalConstraints.length > 0 || data.outOfScope) {
+                prompt += `## Constraints & Requirements\n`;
+                
+                if (mustHaveFeatures.length > 0) {
+                    prompt += `**Must-Have Features:**\n`;
+                    mustHaveFeatures.forEach(feature => {
+                        prompt += `- ${feature}\n`;
+                    });
+                }
+                
+                if (data.mustNotHave) {
+                    prompt += `**Must NOT Include:** ${data.mustNotHave}\n`;
+                }
+                
+                if (technicalConstraints.length > 0) {
+                    prompt += `**Technical Constraints:** ${technicalConstraints.join(', ')}\n`;
+                }
+                
+                if (data.outOfScope) {
+                    prompt += `**Out of Scope:** ${data.outOfScope}\n`;
+                }
+                prompt += `\n`;
+            }
+            
+            prompt += `## Quality Standards\n`;
+            prompt += `- Write clean, maintainable, well-commented code\n`;
+            prompt += `- Implement proper error handling and loading states\n`;
+            prompt += `- Ensure fast loading times and smooth interactions\n`;
+            prompt += `- Follow ${config.name} best practices and conventions\n`;
+            prompt += `- Test functionality across different screen sizes\n`;
+            prompt += `\n`;
+            
+            prompt += `## Starting Point\n`;
+            prompt += `Begin by creating the main structure and layout, then implement the core functionality step by step. Focus on creating a ${data.tone || 'professional'} user experience that addresses the primary purpose: ${data.primaryPurpose || 'serving the target users effectively'}.`;
+            
+            return prompt;
+        }
+
+
+
+
+
+
+
+
+        
+
+            }
+        }
+
+
+
+
+
+
+        
+
+        }
+
+
+    </script>
+</body>
+</html>
